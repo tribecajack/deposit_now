@@ -13,13 +13,38 @@ const DepositCard = () => {
 
   const actions = ['Deposit', 'Withdraw', 'Repay'];
 
+  const handleConnectWallet = async () => {
+    try {
+      // Check if Phantom wallet is installed
+      const { solana } = window as any;
+      
+      if (!solana?.isPhantom) {
+        alert('Please install Phantom wallet');
+        return;
+      }
+
+      // Connect to wallet
+      const response = await solana.connect();
+      
+      // Get public key
+      const publicKey = response.publicKey.toString();
+      
+      // You can store the public key in state or context here
+      console.log('Connected to wallet:', publicKey);
+      
+    } catch (error) {
+      console.error('Error connecting wallet:', error);
+      alert('Failed to connect wallet');
+    }
+  };
+
   return (
     <div className="w-[320px] glass-effect rounded-xl p-4">
       <div className="flex justify-between items-center mb-4">
         <div className="relative">
           <button 
             onClick={() => setIsActionMenuOpen(!isActionMenuOpen)}
-            className="flex items-center gap-1 text-lg font-bold text-white hover:opacity-80 focus:bg-white/20 active:bg-white/20 p-1.5 rounded-lg"
+            className="flex items-center gap-1 text-lg font-bold text-white hover:opacity-80"
           >
             {selectedAction}
             <ChevronDown className="w-4 h-4" />
@@ -30,7 +55,7 @@ const DepositCard = () => {
               {actions.map((action) => (
                 <button
                   key={action}
-                  className="w-full px-3 py-2 text-left text-white hover:bg-white/20 focus:bg-white/20 active:bg-white/20 text-sm"
+                  className="w-full px-3 py-2 text-left text-white hover:bg-white/5 text-sm"
                   onClick={() => {
                     setSelectedAction(action);
                     setIsActionMenuOpen(false);
@@ -76,7 +101,7 @@ const DepositCard = () => {
         </div>
       </div>
 
-      <button className="w-full mt-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
+      <button onClick={handleConnectWallet} className="w-full mt-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
         <Wallet className="w-4 h-4" />
         Connect Wallet
       </button>
