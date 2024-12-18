@@ -3,7 +3,11 @@ import Logo from './Logo';
 import Navigation from './Navigation';
 import WalletButton from './WalletButton';
 
-const Header = () => (
+interface HeaderProps {
+  walletAddress: string | null;
+}
+
+const Header: React.FC<HeaderProps> = ({ walletAddress }) => (
   <header className="w-full py-4 px-6 glass-effect">
     <div className="max-w-7xl mx-auto flex justify-between items-center">
       <Logo />
@@ -13,7 +17,7 @@ const Header = () => (
           <div className="px-4 py-1.5 rounded-full bg-purple-900/30 text-purple-300 text-sm">
             Solana
           </div>
-          <WalletButton />
+          <WalletButton walletAddress={walletAddress} />
         </div>
       </div>
     </div>
