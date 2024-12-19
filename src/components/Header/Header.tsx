@@ -3,25 +3,24 @@ import Logo from './Logo';
 import Navigation from './Navigation';
 import WalletButton from './WalletButton';
 
-interface HeaderProps {
-  walletAddress: string | null;
-}
+// interface HeaderProps {
+//   walletAddress: string | null;
+//   setWalletAddress: (address: string | null) => void;
+//   onDisconnect: () => void;
+// }
 
-const Header: React.FC<HeaderProps> = ({ walletAddress }) => (
-  <header className="w-full py-4 px-6 glass-effect">
-    <div className="max-w-7xl mx-auto flex justify-between items-center">
-      <Logo />
-      <div className="flex items-center gap-6">
-        <Navigation />
-        <div className="flex items-center gap-3">
-          <div className="px-4 py-1.5 rounded-full bg-purple-900/30 text-purple-300 text-sm">
-            Solana
-          </div>
-          <WalletButton walletAddress={walletAddress} />
+const Header = () => {
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <Logo />
+          <Navigation />
+          <WalletButton />
         </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 export default Header;

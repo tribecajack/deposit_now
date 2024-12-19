@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Settings2, Wallet, ChevronDown } from 'lucide-react';
 import TokenSelector from './TokenSelector';
+// import { Connection } from '@solana/web3.js';
 
-interface DepositCardProps {
-  setWalletAddress: (address: string | null) => void;
-  walletAddress: string | null;
-}
+// interface DepositCardProps {
+//   setWalletAddress: (address: string | null) => void;
+//   walletAddress: string | null;
+// }
 
-const DepositCard: React.FC<DepositCardProps> = ({ setWalletAddress, walletAddress }) => {
+const DepositCard= () => {
   const [amount, setAmount] = useState('');
   const [selectedAction, setSelectedAction] = useState('Deposit');
   const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
@@ -18,32 +19,33 @@ const DepositCard: React.FC<DepositCardProps> = ({ setWalletAddress, walletAddre
 
   const actions = ['Deposit', 'Withdraw', 'Repay'];
 
-  const handleConnectWallet = async () => {
-    try {
-      // Check if Phantom wallet is installed
-      const { solana } = window as any;
+  // const handleConnectWallet = async () => {
+  //   try {
+  //     const { solana } = window as any;
       
-      if (!solana?.isPhantom) {
-        alert('Please install Phantom wallet');
-        return;
-      }
+  //     if (!solana?.isPhantom) {
+  //       alert('Please install Phantom wallet');
+  //       return;
+  //     }
 
-      // Connect to wallet
-      const response = await solana.connect();
+  //     // First connect to the wallet
+  //     const response = await solana.connect();
       
-      // Get public key
-      const publicKey = response.publicKey.toString();
+  //     // Then establish the RPC connection
+  //     const connection = new Connection(
+  //       "https://mainnet.helius-rpc.com/?api-key=a4940974-a8b5-45bd-b48c-09b1f1ef8b02",
+  //       'confirmed'
+  //     );
 
-      setWalletAddress(publicKey);
+  //     const publicKey = response.publicKey.toString();
+  //     setWalletAddress(publicKey);
+  //     console.log('Connected to wallet:', publicKey);
       
-      // You can store the public key in state or context here
-      console.log('Connected to wallet:', publicKey);
-      
-    } catch (error) {
-      console.error('Error connecting wallet:', error);
-      alert('Failed to connect wallet');
-    }
-  };
+  //   } catch (error) {
+  //     console.error('Error connecting wallet:', error);
+  //     alert('Failed to connect wallet');
+  //   }
+  // };
 
   return (
     <div className="w-[320px] glass-effect rounded-xl p-4">
@@ -107,11 +109,6 @@ const DepositCard: React.FC<DepositCardProps> = ({ setWalletAddress, walletAddre
           <span className="text-green-400">5.2%</span>
         </div>
       </div>
-
-      <button onClick={handleConnectWallet} className="w-full mt-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
-        <Wallet className="w-4 h-4" />
-        {walletAddress ? 'Connected' : 'Connect Wallet'}
-      </button>
     </div>
   );
 };
