@@ -75,7 +75,7 @@ const SwapCard = () => {
       <div className="mt-4 p-3 bg-gray-50 rounded-xl">
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">Exchange Rate</span>
-          <span>1 SOL ≈ 101.42 USDC</span>
+          <span>1 SOL ≈ 301.42 USDC</span>
         </div>
       </div>
 
