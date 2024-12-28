@@ -4,8 +4,16 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      'buffer': 'buffer'
+    }
+  },
+  define: {
+    'global': {},
+  },
   optimizeDeps: {
-    exclude: ['lucide-react'],
+    include: ['buffer']
   },
   server: {
     proxy: {
@@ -15,5 +23,10 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
+  },
+  base: '/',
+  build: {
+    sourcemap: true,
+    outDir: 'dist'
   }
 });
