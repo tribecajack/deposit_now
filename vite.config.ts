@@ -20,7 +20,11 @@ export default defineConfig({
       '/api': {
         target: 'https://api.ultra.markets',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        secure: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        headers: {
+          'Accept': 'application/json'
+        }
       }
     }
   },
